@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Mbollo | Inscription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary: #2B88D9;
+            --primary-light: #99D0F2;
+            --primary-soft: #BDE3F2;
+            --accent: #F2B705;
+            --accent-dark: #F29F05;
+        }
+        
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-card { animation: fadeInScale 0.5s ease forwards; }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-left { animation: slideInLeft 0.6s ease forwards; }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-right { animation: slideInRight 0.6s ease forwards; }
+        
+        .btn-primary-3d {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #1a5a8f;
+            transition: all 0.08s linear;
+            transform: translateY(-2px);
+            width: 100%;
+        }
+        .btn-primary-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #1a5a8f;
+        }
+        
+        .input-group { position: relative; margin-bottom: 1.5rem; }
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            z-index: 1;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(43, 136, 217, 0.1);
+        }
+        
+        .password-wrapper { position: relative; }
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #9ca3af;
+        }
+        .password-toggle:hover { color: var(--primary); }
+        
+        .form-input-password {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background: white;
+        }
+        .form-input-password:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(43, 136, 217, 0.1);
+        }
+        
+        .login-link { color: var(--primary); font-weight: 600; transition: all 0.3s ease; }
+        .login-link:hover { color: var(--accent); transform: translateX(4px); }
+        
+        .password-strength { margin-top: 0.5rem; }
+        .strength-bar { height: 4px; border-radius: 2px; transition: all 0.3s ease; }
+        
+        body {
+            background: linear-gradient(135deg, #2B88D9, #99D0F2, #BDE3F2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        @media (max-width: 768px) { body { padding: 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="max-w-5xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden animate-card">
+        <div class="flex flex-col md:flex-row">
+            
+            <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-[#2B88D9] to-[#1a6bb3] relative overflow-hidden">
+                <div class="absolute inset-0 bg-black/20 z-10"></div>
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-20"></div>
+                
+                <div class="relative z-20 flex flex-col justify-between p-8 lg:p-10 text-white h-full">
+                    <div class="animate-slide-left">
+                        <h2 class="text-3xl lg:text-4xl font-bold leading-tight mb-4">Rejoignez<br><span class="text-[#F2B705]">l'aventure Mbollo</span></h2>
+                        <p class="text-white/80 text-base lg:text-lg leading-relaxed">
+                            Créez votre compte gratuitement et découvrez une nouvelle façon de gérer vos projets en équipe.
+                        </p>
+                        
+                        <div class="space-y-3 mt-8">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <i class="fas fa-check text-[#F2B705] text-sm"></i>
+                                </div>
+                                <span class="text-sm">Gestion intuitive de vos projets</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-[#F2B705] text-sm"></i>
+                                </div>
+                                <span class="text-sm">Statistiques en temps réel</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <i class="fas fa-mobile-alt text-[#F2B705] text-sm"></i>
+                                </div>
+                                <span class="text-sm">Accessible sur tous vos appareils</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto pt-8 animate-slide-left">
+                        <div class="flex items-center gap-2 text-white/50 text-xs">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Données sécurisées et chiffrées</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute bottom-20 right-10 w-32 h-32 bg-[#F2B705]/10 rounded-full blur-3xl"></div>
+                <div class="absolute top-20 left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div class="w-full md:w-1/2 p-6 sm:p-8 lg:p-10 animate-slide-right">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center mb-3">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#2B88D9] to-[#1a6bb3] rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-users text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-800">Mbollo</h1>
+                    <p class="text-gray-500 text-sm mt-1">Créez votre compte gratuitement</p>
+                </div>
+                
+                <form id="registerForm">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="registerName" class="form-input" placeholder="Nom complet" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="registerEmail" class="form-input" placeholder="Adresse email" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <div class="password-wrapper">
+                            <input type="password" id="registerPassword" class="form-input-password" placeholder="Mot de passe" required style="padding-left: 2.5rem;">
+                            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-bar w-full bg-gray-200 rounded-full">
+                                <div id="strengthBar" class="strength-bar" style="width: 0%;"></div>
+                            </div>
+                            <span id="strengthText" class="text-xs text-gray-500"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <div class="password-wrapper">
+                            <input type="password" id="registerConfirmPassword" class="form-input-password" placeholder="Confirmer le mot de passe" required style="padding-left: 2.5rem;">
+                            <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary-3d">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Créer mon compte
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Déjà un compte ? 
+                        <a href="login.html" class="login-link">Se connecter</a>
+                    </p>
+                </div>
+                
+                <div class="mt-6 pt-4 border-t border-gray-200 text-center">
+                    <p class="text-xs text-gray-500 mb-3">Ou inscrivez-vous avec</p>
+                    <div class="flex gap-3 justify-center">
+                        <button class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center">
+                            <i class="fab fa-google text-red-500"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center">
+                            <i class="fab fa-github text-gray-800"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center">
+                            <i class="fab fa-microsoft text-blue-600"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const registerPassword = document.getElementById('registerPassword');
+        togglePassword.addEventListener('click', function() {
+            const type = registerPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            registerPassword.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const registerConfirmPassword = document.getElementById('registerConfirmPassword');
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = registerConfirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            registerConfirmPassword.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+        
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]+/)) strength++;
+            if (password.match(/[A-Z]+/)) strength++;
+            if (password.match(/[0-9]+/)) strength++;
+            if (password.match(/[$@#&!]+/)) strength++;
+            
+            const percentages = {0: 0, 1: 20, 2: 40, 3: 60, 4: 80, 5: 100};
+            const colors = {0: '#e5e7eb', 1: '#ef4444', 2: '#f97316', 3: '#eab308', 4: '#22c55e', 5: '#22c55e'};
+            const texts = {0: 'Très faible', 1: 'Faible', 2: 'Moyen', 3: 'Bon', 4: 'Fort', 5: 'Très fort'};
+            
+            strengthBar.style.width = percentages[strength] + '%';
+            strengthBar.style.backgroundColor = colors[strength];
+            strengthText.textContent = texts[strength];
+            strengthText.style.color = colors[strength];
+            return strength;
+        }
+        
+        registerPassword.addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+        });
+        
+        const registerForm = document.getElementById('registerForm');
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            if (!email.includes('@')) {
+                alert('Veuillez entrer une adresse email valide');
+                return;
+            }
+            if (password.length < 8) {
+                alert('Le mot de passe doit contenir au moins 8 caractères');
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert('Les mots de passe ne correspondent pas');
+                return;
+            }
+            
+            alert(`Inscription réussie !\nBienvenue ${name}\n\nRedirection vers la page de connexion...`);
+            registerForm.reset();
+            strengthBar.style.width = '0%';
+            strengthText.textContent = '';
+        });
+        
+        const inputs = document.querySelectorAll('.form-input, .form-input-password');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => { input.style.transform = 'translateY(-1px)'; });
+            input.addEventListener('blur', () => { input.style.transform = 'translateY(0)'; });
+        });
+    </script>
+</body>
+</html>

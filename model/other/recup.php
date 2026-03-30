@@ -11,4 +11,8 @@ function arrayToJson($array){
     $tab = json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     return file_put_contents($path,$tab);
 }
+
+function mailIsValide($mail){
+    
+}
 ?>
