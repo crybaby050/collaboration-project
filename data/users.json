@@ -1,0 +1,26 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "nom": "Seydina Thiam",
+            "email": "seydina@gmail.com",
+            "password": "user123",
+            "role": "user",
+            "statut": "actif",
+            "dateCreation": "2026-03-30",
+            "telephone": "+221770000000",
+            "photoProfil": null
+        },
+        {
+            "id": 2,
+            "nom": "Admin System",
+            "email": "admin@taskflow.com",
+            "password": "admin123",
+            "role": "admin",
+            "statut": "actif",
+            "dateCreation": "2026-03-30",
+            "telephone": "+221780000000",
+            "photoProfil": null
+        }
+    ]
+}
