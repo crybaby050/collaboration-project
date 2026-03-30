@@ -76,7 +76,10 @@
             box-shadow: 0 0 0 3px rgba(43, 136, 217, 0.1);
         }
         
-        .password-wrapper { position: relative; }
+        .password-wrapper { 
+            position: relative;
+            width: 100%;
+        }
         .password-toggle {
             position: absolute;
             right: 1rem;
@@ -84,6 +87,7 @@
             transform: translateY(-50%);
             cursor: pointer;
             color: #9ca3af;
+            z-index: 2;
         }
         .password-toggle:hover { color: var(--primary); }
         
@@ -115,12 +119,28 @@
             padding: 1.5rem;
         }
         @media (max-width: 768px) { body { padding: 1rem; } }
+        
+        /* Style pour le champ téléphone simple */
+        .form-input-phone {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .form-input-phone:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(43, 136, 217, 0.1);
+        }
     </style>
 </head>
 <body>
     <div class="max-w-5xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden animate-card">
         <div class="flex flex-col md:flex-row">
             
+            <!-- PARTIE GAUCHE - Fond avec image et dégradé -->
             <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-[#2B88D9] to-[#1a6bb3] relative overflow-hidden">
                 <div class="absolute inset-0 bg-black/20 z-10"></div>
                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-20"></div>
@@ -166,6 +186,7 @@
                 <div class="absolute top-20 left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
             </div>
             
+            <!-- PARTIE DROITE - Formulaire avec logo -->
             <div class="w-full md:w-1/2 p-6 sm:p-8 lg:p-10 animate-slide-right">
                 <div class="text-center mb-8">
                     <div class="inline-flex items-center justify-center mb-3">
@@ -178,20 +199,29 @@
                 </div>
                 
                 <form id="registerForm">
+                    <!-- Champ Nom complet avec icône -->
                     <div class="input-group">
                         <i class="fas fa-user input-icon"></i>
                         <input type="text" id="registerName" class="form-input" placeholder="Nom complet" required>
                     </div>
                     
+                    <!-- Champ Email avec icône -->
                     <div class="input-group">
                         <i class="fas fa-envelope input-icon"></i>
                         <input type="email" id="registerEmail" class="form-input" placeholder="Adresse email" required>
                     </div>
                     
+                    <!-- Champ Téléphone avec icône -->
                     <div class="input-group">
-                        <i class="fas fa-lock input-icon"></i>
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" id="registerPhone" class="form-input-phone" placeholder="Téléphone" required>
+                    </div>
+                    
+                    <!-- Champ Mot de passe avec icône et œil -->
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon top-6"></i>
                         <div class="password-wrapper">
-                            <input type="password" id="registerPassword" class="form-input-password" placeholder="Mot de passe" required style="padding-left: 2.5rem;">
+                            <input type="password" id="registerPassword" class="form-input-password" placeholder="Mot de passe" required>
                             <i class="fas fa-eye password-toggle" id="togglePassword"></i>
                         </div>
                         <div class="password-strength">
@@ -202,10 +232,11 @@
                         </div>
                     </div>
                     
+                    <!-- Champ Confirmation mot de passe avec icône et œil -->
                     <div class="input-group">
                         <i class="fas fa-check-circle input-icon"></i>
                         <div class="password-wrapper">
-                            <input type="password" id="registerConfirmPassword" class="form-input-password" placeholder="Confirmer le mot de passe" required style="padding-left: 2.5rem;">
+                            <input type="password" id="registerConfirmPassword" class="form-input-password" placeholder="Confirmer le mot de passe" required>
                             <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
                         </div>
                     </div>
@@ -242,6 +273,7 @@
     </div>
     
     <script>
+        // Gestion de l'affichage/masquage du mot de passe principal
         const togglePassword = document.getElementById('togglePassword');
         const registerPassword = document.getElementById('registerPassword');
         togglePassword.addEventListener('click', function() {
@@ -251,6 +283,7 @@
             this.classList.toggle('fa-eye-slash');
         });
         
+        // Gestion de l'affichage/masquage du mot de passe de confirmation
         const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
         const registerConfirmPassword = document.getElementById('registerConfirmPassword');
         toggleConfirmPassword.addEventListener('click', function() {
@@ -260,6 +293,7 @@
             this.classList.toggle('fa-eye-slash');
         });
         
+        // Indicateur de force du mot de passe
         const strengthBar = document.getElementById('strengthBar');
         const strengthText = document.getElementById('strengthText');
         
@@ -286,42 +320,14 @@
             checkPasswordStrength(this.value);
         });
         
-        const registerForm = document.getElementById('registerForm');
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('registerName').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            
-            if (!name || !email || !password || !confirmPassword) {
-                alert('Veuillez remplir tous les champs');
-                return;
-            }
-            if (!email.includes('@')) {
-                alert('Veuillez entrer une adresse email valide');
-                return;
-            }
-            if (password.length < 8) {
-                alert('Le mot de passe doit contenir au moins 8 caractères');
-                return;
-            }
-            if (password !== confirmPassword) {
-                alert('Les mots de passe ne correspondent pas');
-                return;
-            }
-            
-            alert(`Inscription réussie !\nBienvenue ${name}\n\nRedirection vers la page de connexion...`);
-            registerForm.reset();
-            strengthBar.style.width = '0%';
-            strengthText.textContent = '';
-        });
-        
-        const inputs = document.querySelectorAll('.form-input, .form-input-password');
+        // Animation des champs au focus
+        const inputs = document.querySelectorAll('.form-input, .form-input-password, .form-input-phone');
         inputs.forEach(input => {
             input.addEventListener('focus', () => { input.style.transform = 'translateY(-1px)'; });
             input.addEventListener('blur', () => { input.style.transform = 'translateY(0)'; });
         });
+        
+        console.log('Mbollo - Page d\'inscription avec champ téléphone et icônes corrigées');
     </script>
 </body>
 </html>
