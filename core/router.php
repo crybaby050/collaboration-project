@@ -6,6 +6,19 @@ require_once __DIR__ . '/../model/other/recup.php';
 // Récupérer la page demandée
 $page = $_GET['page'] ?? 'login';
 
+// ============================================
+// TRAITER LA DÉCONNEXION EN PREMIER
+// ============================================
+if ($page === 'logout') {
+    session_destroy();
+    redirect('?page=login');
+    exit;
+}
+
+// ============================================
+// SUITE DU ROUTAGE
+// ============================================
+
 // Pages publiques
 $publicPages = ['login', 'register'];
 
@@ -33,11 +46,6 @@ switch ($page) {
         dashboardPage();
         break;
 
-    case 'logout':
-        session_destroy();
-        redirect('?page=login');
-        exit;
-
     default:
         require_once __DIR__ . '/../controller/loginController.php';
         loginPage();
@@ -48,6 +56,3 @@ switch ($page) {
 if ($page !== 'login' && $page !== 'register') {
     require_once __DIR__ . '/../view/footer.php';
 }
-
-// TEST TEMPORAIRE
-echo "<!-- ROUTER TERMINÉ -->";
