@@ -190,6 +190,8 @@
             transition: all 0.3s ease;
         }
     </style>
+    <script src="http://localhost:8000/public/js/script.js"></script>
+
 </head>
 <body class="bg-gray-50" id="body">
     
@@ -211,28 +213,34 @@
             
             <nav class="space-y-2">
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all cursor-pointer group">
-                    <i class="fas fa-chart-line w-5 text-white"></i>
+                    <a href="<?= WEBROOT ?>?page=dashboard">
+                        <i class="fas fa-chart-line w-5 text-white"></i>
                     <span class="text-white">Tableau de bord</span>
+                    </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <i class="fas fa-project-diagram w-5 text-white/80 group-hover:text-white"></i>
+                    <a href="<?= WEBROOT ?>?page=projet">
+                        <i class="fas fa-project-diagram w-5 text-white/80 group-hover:text-white"></i>
                     <span class="text-white/80 group-hover:text-white">Projets</span>
+                    </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <i class="fas fa-tasks w-5 text-white/80 group-hover:text-white"></i>
+                    <a href="<?= WEBROOT ?>?page=tache">
+                        <i class="fas fa-tasks w-5 text-white/80 group-hover:text-white"></i>
                     <span class="text-white/80 group-hover:text-white">Tâches</span>
+                    </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <i class="fas fa-users w-5 text-white/80 group-hover:text-white"></i>
+                    <a href="<?= WEBROOT ?>?page=tache">
+                        <i class="fas fa-users w-5 text-white/80 group-hover:text-white"></i>
                     <span class="text-white/80 group-hover:text-white">Équipe</span>
+                    </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <i class="fas fa-chart-bar w-5 text-white/80 group-hover:text-white"></i>
-                    <span class="text-white/80 group-hover:text-white">Statistiques</span>
-                </div>
-                <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <i class="fas fa-cog w-5 text-white/80 group-hover:text-white"></i>
+                    <a href="<?= WEBROOT ?>?page=logout">
+                        <i class="fas fa-cog w-5 text-white/80 group-hover:text-white"></i>
                     <span class="text-white/80 group-hover:text-white">Paramètres</span>
+                    </a>
                 </div>
             </nav>
             

@@ -4,7 +4,5 @@
         </div>
     </main>
 
-    <!-- FICHIER JS GÉNÉRAL -->
-    <script src="<?php echo WEBROOT; ?>public/js/script.js"></script>
 </body>
 </html>
