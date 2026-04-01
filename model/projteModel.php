@@ -184,3 +184,7 @@ function getRandomColor() {
     $colors = ['#2B88D9', '#F2B705', '#F29F05', '#99D0F2', '#BDE3F2', '#1e6bb3', '#e67e22', '#27ae60', '#8e44ad', '#e74c3c'];
     return $colors[array_rand($colors)];
 }
+
+function countProjet($tab){
+    return count($tab);
+}
