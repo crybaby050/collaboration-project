@@ -1,19 +1,20 @@
-===================================================================
-FONCTION RATTACHER AU PROJET ET AU TACHES
-===================================================================
-getAllProjets()	Récupère tous les projets
-getProjetById($id)	Récupère un projet par son ID
-getProjetsByUser($userId)	Récupère les projets d'un utilisateur
-createProjet()	Crée un nouveau projet
-updateProjet()	Modifie un projet
-deleteProjet()	Supprime un projet et ses tâches
-addMemberToProjet()	Ajoute un membre à un projet
-isProjetAdmin()	Vérifie si un utilisateur est admin
-getAllTaches()	Récupère toutes les tâches
-getTachesByProjet()	Récupère les tâches d'un projet (avec tri et filtre)
-getTachesByUser()	Récupère les tâches assignées à un utilisateur
-getTachesStatistiques()	Calcule les stats d'un projet
-createTache()	Crée une nouvelle tâche (admin seulement)
-updateTache()	Modifie une tâche (admin ou assigné)
-deleteTache()	Supprime une tâche (admin seulement)
-addCommentaire()	Ajoute un commentaire à une tâche
+<?php
+//===================================================================
+//FONCTION RATTACHER AU PROJET ET AU TACHES
+//===================================================================
+getAllProjets()	;//Récupère tous les projets
+getProjetById($id)	;//Récupère un projet par son ID
+getProjetsByUser($userId)	;//Récupère les projets d'un utilisateur
+createProjet()	;//Crée un nouveau projet
+updateProjet()	;//Modifie un projet
+deleteProjet()	;//Supprime un projet et ses tâches
+addMemberToProjet()	;//Ajoute un membre à un projet
+isProjetAdmin()	;//Vérifie si un utilisateur est admin
+getAllTaches()	;//Récupère toutes les tâches
+getTachesByProjet()	;//Récupère les tâches d'un projet (avec tri et filtre)
+getTachesByUser()	;//Récupère les tâches assignées à un utilisateur
+getTachesStatistiques()	;//Calcule les stats d'un projet
+createTache()	;//Crée une nouvelle tâche (admin seulement)
+updateTache()	;//Modifie une tâche (admin ou assigné)
+deleteTache()	;//Supprime une tâche (admin seulement)
+addCommentaire()	;//Ajoute un commentaire à une tâche
