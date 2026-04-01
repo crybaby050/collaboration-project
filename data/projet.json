@@ -1,0 +1,26 @@
+{
+    "projets": [
+        {
+            "id": 1,
+            "nom": "Refonte Dashboard",
+            "description": "Refonte complète de l'interface utilisateur",
+            "dateCreation": "2026-04-01",
+            "dateEcheance": "2026-05-15",
+            "statut": "en_cours",
+            "adminId": 1,
+            "membres": [1, 2, 3],
+            "couleur": "#2B88D9"
+        },
+        {
+            "id": 2,
+            "nom": "Migration Base de données",
+            "description": "Migration vers une nouvelle architecture",
+            "dateCreation": "2026-04-01",
+            "dateEcheance": "2026-06-01",
+            "statut": "planifie",
+            "adminId": 2,
+            "membres": [2, 4],
+            "couleur": "#F2B705"
+        }
+    ]
+}
