@@ -38,7 +38,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm font-medium mb-1">Projets actifs</p>
-                            <p class="text-3xl font-bold text-gray-800 counter" id="projectsCount">4</p>
+                            <p class="text-3xl font-bold text-gray-800 counter" id="projectsCount"><?= $nbProjet ?></p>
                             <p class="text-xs text-green-500 mt-2">
                                 <i class="fas fa-arrow-up"></i> +3 nouveaux
                             </p>
