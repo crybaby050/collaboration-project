@@ -1,80 +1,105 @@
 <?php
-//fonction qui me permettent de transformer les données json en donée php exploitable
+function redirect($url) {
+    header("Location:" . WEBROOT . $url);
+    exit;
+}
+
+function sanitize($str) {
+    return htmlspecialchars(trim($str), ENT_QUOTES);
+}
+
+// fonction qui permet de transformer les données json en données php exploitables
 function jsonToArray(){
     $path = __DIR__ . '/../../data/users.json';
+    if (!file_exists($path)) {
+        return ['users' => []];
+    }
     $json = file_get_contents($path);
     return json_decode($json, true);
 }
 
-//fonction qui me permettent de transformer des données php en données completment exploitable en json
+// fonction qui permet de transformer des données php en json
 function arrayToJson($array){
     $path = __DIR__ . '/../../data/users.json';
     $tab = json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    return file_put_contents($path,$tab);
+    return file_put_contents($path, $tab);
 }
 
-//fonction qui me retourne tous les utilisateur
+// fonction qui retourne tous les utilisateurs
 function findAllUsers(){
-    return jsonToArray();
+    $data = jsonToArray();
+    return $data['users'] ?? [];
 }
 
+
+
 //==============================================================
-//LEs informations de connexion
+//LEs informations de connection
 //==============================================================
 
 
-//fonction qui utilise les regex pour verifier si ce qui est saisie est un email
+
+// fonction qui utilise les regex pour vérifier si c'est un email
 function validerEmail($email) {
-    // Nettoyer l'email (supprimer les espaces avant/après)
     $email = trim($email);
-    
-    // Expression régulière pour valider l'email
-    // Format: quelquechose@domaine.extension (2 à 4 lettres pour l'extension)
     $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-    
-    // Vérifier si l'email correspond au pattern
-    if (preg_match($pattern, $email)) {
-        return true;
-    } else {
-        return false;
-    }
+    return preg_match($pattern, $email) === 1;
 }
 
-//fonction qui verifie si le mail est correct
+// fonction qui vérifie si le mail existe et retourne l'utilisateur
 function verifEmail($mail){
     $allUsers = findAllUsers();
-    foreach($allUsers['users'] as $users){
-        if($users['email'] === $mail){
-            return $users;
+    foreach($allUsers as $user){
+        if($user['email'] === $mail){
+            return $user;
         }
     }
     return [];
 }
 
-//fonction qui verifie le mot de passe est correcte
+// fonction qui vérifie le mot de passe
 function verifPassword($pswd){
     $allUsers = findAllUsers();
-    foreach($allUsers['users'] as $users){
-        if($users['password'] === $pswd){
-            return $users;
+    foreach($allUsers as $user){
+        if($user['password'] === $pswd){
+            return $user;
         }
     }
     return [];
 }
 
-//fonction qui verifie l'authentification en entier
+// fonction qui vérifie l'authentification complète
 function verifConnexion($email, $password) {
     $email = trim($email);
     $password = trim($password);
+    
     if (empty($email) || empty($password)) {
         return false;
     }
+    
     $user = verifEmail($email);
+    
     if (empty($user) || $user['password'] !== $password) {
         return false;
     }
-    // Connexion réussie
+    
+    // Vérifier si le compte est actif
+    if (isset($user['statut']) && $user['statut'] !== 'actif') {
+        return false;
+    }
+    
     return true;
+}
+
+// fonction pour récupérer un utilisateur par son ID
+function findUserById($id){
+    $allUsers = findAllUsers();
+    foreach($allUsers as $user){
+        if($user['id'] == $id){
+            return $user;
+        }
+    }
+    return [];
 }
 
 //==============================================================

@@ -103,6 +103,16 @@
         .register-link { color: var(--primary); font-weight: 600; transition: all 0.3s ease; }
         .register-link:hover { color: var(--accent); transform: translateX(4px); }
         
+        .error-message {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        
         body {
             background: linear-gradient(135deg, #2B88D9, #99D0F2, #BDE3F2);
             min-height: 100vh;
@@ -174,29 +184,38 @@
                     <p class="text-gray-500 text-sm mt-1">Connectez-vous à votre compte</p>
                 </div>
                 
-                <form id="loginForm">
+                <!-- Affichage des erreurs -->
+                <?php if (!empty($errors)): ?>
+                    <div class="error-message">
+                        <?php foreach ($errors as $error): ?>
+                            <p><i class="fas fa-exclamation-circle mr-2"></i><?php echo htmlspecialchars($error); ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <form method="POST" action="">
                     <div class="input-group">
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="loginEmail" class="form-input" placeholder="Adresse email" required>
+                        <input type="email" name="mail" id="loginEmail" class="form-input" placeholder="Adresse email" value="<?php echo isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : ''; ?>" required>
                     </div>
                     
                     <div class="input-group">
                         <i class="fas fa-lock input-icon"></i>
                         <div class="password-wrapper">
-                            <input type="password" id="loginPassword" class="form-input-password" placeholder="Mot de passe" required style="padding-left: 2.5rem;">
+                            <input type="password" name="mdp" id="loginPassword" class="form-input-password" placeholder="Mot de passe" required style="padding-left: 2.5rem;">
                             <i class="fas fa-eye password-toggle" id="togglePassword"></i>
                         </div>
                     </div>
                     
                     <div class="flex justify-between items-center mb-6">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4" style="accent-color: var(--primary);">
+                            <input type="checkbox" name="remember" class="w-4 h-4" style="accent-color: var(--primary);">
                             <span class="text-sm text-gray-600">Se souvenir de moi</span>
                         </label>
                         <a href="#" class="text-sm text-[#2B88D9] hover:text-[#F2B705] transition">Mot de passe oublié ?</a>
                     </div>
                     
-                    <button type="submit" class="btn-primary-3d">
+                    <button type="submit" name="log" class="btn-primary-3d">
                         <i class="fas fa-arrow-right-to-bracket mr-2"></i>
                         Se connecter
                     </button>
@@ -205,7 +224,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
                         Pas encore de compte ? 
-                        <a href="register.html" class="register-link">Créer un compte</a>
+                        <a href="?page=register" class="register-link">Créer un compte</a>
                     </p>
                 </div>
                 
@@ -235,16 +254,6 @@
             loginPassword.setAttribute('type', type);
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
-        });
-        
-        const loginForm = document.getElementById('loginForm');
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            if (!email || !password) { alert('Veuillez remplir tous les champs'); return; }
-            if (!email.includes('@')) { alert('Veuillez entrer une adresse email valide'); return; }
-            alert(`Connexion réussie !\nBienvenue ${email}\n\nRedirection vers le tableau de bord...`);
         });
         
         const inputs = document.querySelectorAll('.form-input, .form-input-password');
