@@ -1,7 +1,7 @@
 <?php
 
 // Charge le modèle utilisateur
-require_once __DIR__ . '/userModel.php';
+require_once __DIR__ . '/other/recup.php';
 
 // Charge le modèle projet
 require_once __DIR__ . '/projetModel.php';

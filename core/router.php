@@ -1,7 +1,6 @@
 <?php
 
 // Inclure le modèle
-require_once __DIR__ . '/../model/other/recup.php';
 require_once __DIR__ . '/../model/init.php';
 
 // Récupérer la page demandée
