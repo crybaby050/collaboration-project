@@ -264,3 +264,14 @@ function getCommentairesByTache($tacheId) {
     }
     return [];
 }
+
+function countTaches(){
+    $taches = getAllTaches();
+    $onGoing = [];
+    foreach($taches as $tache){
+        if($tache['statut'] == 'en_cours'){
+            $onGoing[] = $tache;
+        }
+    }
+    return count($onGoing);
+}

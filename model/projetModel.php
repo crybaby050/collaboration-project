@@ -185,13 +185,26 @@ function getRandomColor() {
     return $colors[array_rand($colors)];
 }
 
-function countProjet(){
+// Compte les projets terminés
+function countProjetsTermines() {
     $projets = getAllProjets();
-    $onGoing = [];
-    foreach($projets as $projet){
-        if($projet['statut'] == 'en_cours'){
-            $onGoing[]=$projet;
+    $termines = 0;
+    foreach ($projets as $projet) {
+        if ($projet['statut'] == 'termine') {
+            $termines++;
         }
     }
-    return count($onGoing);
+    return $termines;
+}
+
+// Compte les projets actifs (en_cours + planifie)
+function countProjetsActifs() {
+    $projets = getAllProjets();
+    $actifs = 0;
+    foreach ($projets as $projet) {
+        if ($projet['statut'] == 'en_cours' || $projet['statut'] == 'planifie') {
+            $actifs++;
+        }
+    }
+    return $actifs;
 }

@@ -23,7 +23,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm font-medium mb-1">Tâches en cours</p>
-                            <p class="text-3xl font-bold text-gray-800 counter" id="tasksCount">32</p>
+                            <p class="text-3xl font-bold text-gray-800 counter" id="tasksCount"><?= $nbTache ?></p>
                             <p class="text-xs text-green-500 mt-2">
                                 <i class="fas fa-arrow-up"></i> +12% cette semaine
                             </p>
@@ -53,7 +53,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm font-medium mb-1">Projets achevés</p>
-                            <p class="text-3xl font-bold text-gray-800 counter" id="completedCount">1</p>
+                            <p class="text-3xl font-bold text-gray-800 counter" id="completedCount"><?= $nbProjetEnded ?></p>
                             <p class="text-xs text-green-500 mt-2">
                                 <i class="fas fa-check-circle"></i> Ce trimestre
                             </p>
