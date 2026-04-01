@@ -5,7 +5,6 @@ require_once __DIR__ . '/../model/other/recup.php';
 
 // Récupérer la page demandée
 $page = $_GET['page'] ?? 'login';
-echo "<!-- DEBUG: page = $page -->\n";  // AJOUTER CETTE LIGNE
 
 // Pages publiques
 $publicPages = ['login', 'register'];
@@ -18,7 +17,6 @@ if (!isset($_SESSION['userConnect']) && !in_array($page, $publicPages)) {
 
 // Si l'utilisateur est connecté, charger le header
 if ($page !== 'login' && $page !== 'register') {
-    echo "<!-- DEBUG: Chargement du header -->\n";  // AJOUTER CETTE LIGNE
     require_once __DIR__ . '/../view/header.php';
     $nameUser = $_SESSION['userConnect']['prenom'] . " " . $_SESSION['userConnect']['nom'];
 }
@@ -26,19 +24,21 @@ if ($page !== 'login' && $page !== 'register') {
 // Routage
 switch ($page) {
     case 'login':
-        echo "<!-- DEBUG: Chargement de loginPage -->\n";  // AJOUTER CETTE LIGNE
         require_once __DIR__ . '/../controller/loginController.php';
         loginPage();
         break;
         
     case 'dashboard':
-        echo "<!-- DEBUG: Chargement de dashboardPage -->\n";  // AJOUTER CETTE LIGNE
         require_once __DIR__ . '/../controller/dashboardController.php';
         dashboardPage();
         break;
-        
+
+    case 'logout':
+        session_destroy();
+        redirect('?page=login');
+        exit;
+
     default:
-        echo "<!-- DEBUG: Chargement par défaut (login) -->\n";  // AJOUTER CETTE LIGNE
         require_once __DIR__ . '/../controller/loginController.php';
         loginPage();
         break;
@@ -46,6 +46,8 @@ switch ($page) {
 
 // Si l'utilisateur est connecté, charger le footer
 if ($page !== 'login' && $page !== 'register') {
-    echo "<!-- DEBUG: Chargement du footer -->\n";  // AJOUTER CETTE LIGNE
     require_once __DIR__ . '/../view/footer.php';
 }
+
+// TEST TEMPORAIRE
+echo "<!-- ROUTER TERMINÉ -->";
