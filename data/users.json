@@ -21,6 +21,39 @@
             "dateCreation": "2026-03-30",
             "telephone": "+221780000000",
             "photoProfil": null
+        },
+        {
+            "id": 3,
+            "nom": "Fatou Diop",
+            "email": "fatou@mbollo.com",
+            "password": "fatou123",
+            "role": "user",
+            "statut": "actif",
+            "dateCreation": "2026-04-01",
+            "telephone": "+221771234567",
+            "photoProfil": null
+        },
+        {
+            "id": 4,
+            "nom": "Mamadou Diallo",
+            "email": "mamadou@mbollo.com",
+            "password": "mamadou123",
+            "role": "user",
+            "statut": "actif",
+            "dateCreation": "2026-04-01",
+            "telephone": "+221775555555",
+            "photoProfil": null
+        },
+        {
+            "id": 5,
+            "nom": "Aissatou Sow",
+            "email": "aissatou@mbollo.com",
+            "password": "aissatou123",
+            "role": "user",
+            "statut": "actif",
+            "dateCreation": "2026-04-01",
+            "telephone": "+221776666666",
+            "photoProfil": null
         }
     ]
 }
