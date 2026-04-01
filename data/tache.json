@@ -1,0 +1,30 @@
+{
+    "taches": [
+        {
+            "id": 1,
+            "titre": "Créer les maquettes",
+            "description": "Réaliser les maquettes Figma",
+            "projetId": 1,
+            "createurId": 1,
+            "assigneId": 3,
+            "statut": "en_cours",
+            "priorite": "haute",
+            "dateCreation": "2026-04-01",
+            "dateEcheance": "2026-04-10",
+            "commentaires": []
+        },
+        {
+            "id": 2,
+            "titre": "Configurer la base de données",
+            "description": "Mettre en place PostgreSQL",
+            "projetId": 2,
+            "createurId": 2,
+            "assigneId": 4,
+            "statut": "a_faire",
+            "priorite": "moyenne",
+            "dateCreation": "2026-04-01",
+            "dateEcheance": "2026-04-20",
+            "commentaires": []
+        }
+    ]
+}
