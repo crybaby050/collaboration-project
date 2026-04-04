@@ -120,6 +120,140 @@ function getGlobalStats($userId) {
     return $stats;
 }
 
+// ==================== NOUVELLES FONCTIONS POUR LE TABLEAU ====================
+
+// Récupère l'avancement d'un projet (pourcentage de tâches terminées)
+function getProjetAvancement($projetId) {
+    $stats = getTachesStatistiques($projetId);
+    
+    if ($stats['total'] == 0) {
+        return 0;
+    }
+    
+    return round(($stats['termine'] / $stats['total']) * 100);
+}
+
+// Vérifie si un projet est terminé (toutes les tâches sont terminées)
+function isProjetTermine($projetId) {
+    $stats = getTachesStatistiques($projetId);
+    
+    // Si pas de tâches, projet non terminé
+    if ($stats['total'] == 0) {
+        return false;
+    }
+    
+    // Projet terminé si toutes les tâches sont terminées
+    return $stats['termine'] == $stats['total'];
+}
+
+// Met à jour le statut d'un projet en fonction de ses tâches
+function updateProjetStatut($projetId) {
+    $estTermine = isProjetTermine($projetId);
+    $projet = getProjetById($projetId);
+    
+    if (!$projet) {
+        return false;
+    }
+    
+    $nouveauStatut = $estTermine ? 'termine' : 'en_cours';
+    
+    // Ne met à jour que si le statut a changé
+    if ($projet['statut'] != $nouveauStatut) {
+        return updateProjet($projetId, ['statut' => $nouveauStatut]);
+    }
+    
+    return true;
+}
+
+// Récupère toutes les informations pour le tableau de bord
+function getProjetsForDashboard($userId) {
+    $projets = getProjetsByUser($userId);
+    $projetsData = [];
+    
+    foreach ($projets as $projet) {
+        // Récupère les statistiques du projet
+        $stats = getTachesStatistiques($projet['id']);
+        $avancement = getProjetAvancement($projet['id']);
+        
+        // Récupère le responsable (admin) du projet
+        $admin = getUserById($projet['adminId']);
+        
+        // Détermine la classe CSS pour le statut
+        $statutClass = '';
+        $statutText = '';
+        
+        // Vérifie si le projet doit être marqué comme terminé
+        if (isProjetTermine($projet['id'])) {
+            $statutClass = 'bg-green-100 text-green-600';
+            $statutText = 'Terminé';
+        } else {
+            switch ($projet['statut']) {
+                case 'planifie':
+                    $statutClass = 'bg-yellow-100 text-yellow-600';
+                    $statutText = 'Planifié';
+                    break;
+                case 'en_cours':
+                    $statutClass = 'bg-[#BDE3F2] text-[#2B88D9]';
+                    $statutText = 'En cours';
+                    break;
+                default:
+                    $statutClass = 'bg-gray-100 text-gray-600';
+                    $statutText = ucfirst($projet['statut']);
+            }
+        }
+        
+        $projetsData[] = [
+            'id' => $projet['id'],
+            'nom' => $projet['nom'],
+            'couleur' => $projet['couleur'],
+            'responsable' => $admin ? $admin['nom'] : 'Inconnu',
+            'statut' => $statutText,
+            'statutClass' => $statutClass,
+            'avancement' => $avancement,
+            'dateEcheance' => $projet['dateEcheance'],
+            'taches_total' => $stats['total'],
+            'taches_termine' => $stats['termine']
+        ];
+    }
+    
+    // Trie les projets : d'abord les non terminés, puis les terminés
+    usort($projetsData, function($a, $b) {
+        if ($a['statut'] == 'Terminé' && $b['statut'] != 'Terminé') {
+            return 1;
+        }
+        if ($a['statut'] != 'Terminé' && $b['statut'] == 'Terminé') {
+            return -1;
+        }
+        return 0;
+    });
+    
+    return $projetsData;
+}
+
+// Fonction à appeler après chaque modification de tâche pour mettre à jour le statut du projet
+function updateTacheAndProjetStatut($tacheId, $userId, $data) {
+    $result = updateTache($tacheId, $userId, $data);
+    
+    if ($result) {
+        // Récupère la tâche pour connaître son projet
+        $taches = getAllTaches();
+        $projetId = null;
+        foreach ($taches as $tache) {
+            if ($tache['id'] == $tacheId) {
+                $projetId = $tache['projetId'];
+                break;
+            }
+        }
+        
+        // Met à jour le statut du projet
+        if ($projetId) {
+            updateProjetStatut($projetId);
+        }
+    }
+    
+    return $result;
+}
+
 // ==================== FONCTIONS DE CRÉATION ET MODIFICATION ====================
 
 // Crée une nouvelle tâche (seul l'admin du projet peut créer)
@@ -153,6 +287,10 @@ function createTache($titre, $description, $projetId, $createurId, $assigneId, $
     
     $taches[] = $nouvelleTache;
     saveTaches($taches);
+    
+    // Met à jour le statut du projet
+    updateProjetStatut($projetId);
+    
     return $nouvelleTache;
 }
 
@@ -196,7 +334,20 @@ function updateTache($tacheId, $userId, $data) {
 
 // Change le statut d'une tâche
 function updateTacheStatut($tacheId, $userId, $nouveauStatut) {
-    return updateTache($tacheId, $userId, ['statut' => $nouveauStatut]);
+    $result = updateTache($tacheId, $userId, ['statut' => $nouveauStatut]);
+    
+    if ($result) {
+        // Met à jour le statut du projet
+        $taches = getAllTaches();
+        foreach ($taches as $tache) {
+            if ($tache['id'] == $tacheId) {
+                updateProjetStatut($tache['projetId']);
+                break;
+            }
+        }
+    }
+    
+    return $result;
 }
 
 // Change la priorité d'une tâche (admin uniquement)
@@ -208,6 +359,7 @@ function updateTachePriorite($tacheId, $userId, $nouvellePriorite) {
 function deleteTache($tacheId, $userId) {
     $taches = getAllTaches();
     $tacheIndex = null;
+    $projetId = null;
     
     // Cherche la tâche
     foreach ($taches as $key => $tache) {
@@ -216,6 +368,7 @@ function deleteTache($tacheId, $userId) {
             if (!isProjetAdmin($tache['projetId'], $userId)) {
                 return false;
             }
+            $projetId = $tache['projetId'];
             $tacheIndex = $key;
             break;
         }
@@ -225,6 +378,12 @@ function deleteTache($tacheId, $userId) {
     
     unset($taches[$tacheIndex]);
     saveTaches(array_values($taches));
+    
+    // Met à jour le statut du projet
+    if ($projetId) {
+        updateProjetStatut($projetId);
+    }
+    
     return true;
 }
 
@@ -265,13 +424,52 @@ function getCommentairesByTache($tacheId) {
     return [];
 }
 
-function countTaches(){
+// ==================== FONCTIONS DE COMPTAGE ====================
+
+// Compte les tâches en cours
+function countTachesEnCours() {
     $taches = getAllTaches();
-    $onGoing = [];
-    foreach($taches as $tache){
-        if($tache['statut'] == 'en_cours'){
-            $onGoing[] = $tache;
+    $onGoing = 0;
+    foreach ($taches as $tache) {
+        if ($tache['statut'] == 'en_cours') {
+            $onGoing++;
         }
     }
-    return count($onGoing);
+    return $onGoing;
+}
+
+// Compte les tâches terminées
+function countTachesTerminees() {
+    $taches = getAllTaches();
+    $terminees = 0;
+    foreach ($taches as $tache) {
+        if ($tache['statut'] == 'termine') {
+            $terminees++;
+        }
+    }
+    return $terminees;
+}
+
+// Compte les tâches à faire
+function countTachesAFaire() {
+    $taches = getAllTaches();
+    $aFaire = 0;
+    foreach ($taches as $tache) {
+        if ($tache['statut'] == 'a_faire') {
+            $aFaire++;
+        }
+    }
+    return $aFaire;
+}
+
+// Compte les tâches par priorité
+function countTachesByPriorite($priorite) {
+    $taches = getAllTaches();
+    $count = 0;
+    foreach ($taches as $tache) {
+        if ($tache['priorite'] == $priorite) {
+            $count++;
+        }
+    }
+    return $count;
 }

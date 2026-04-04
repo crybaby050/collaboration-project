@@ -2,14 +2,35 @@
 function dashboardPage() {
     // Les informations utilisateur sont déjà dans $_SESSION['userConnect']
     $user = $_SESSION['userConnect'];
+    $userId = $user['id'];
     
-    // Variables pour l'affichage
+    // Récupère toutes les données pour le tableau de bord
+    $projetsData = getProjetsForDashboard($userId);
+    
+    // Récupère les statistiques globales
+    $globalStats = getGlobalStats($userId);
+    
+    // Calcule la productivité globale
+    $productiviteGlobale = 0;
+    if ($globalStats['total_taches'] > 0) {
+        $productiviteGlobale = round(($globalStats['taches_termine'] / $globalStats['total_taches']) * 100);
+    }
+    
+    // Variables pour les cards du dashboard
+    $nbProjet = $globalStats['total_projets'];
+    $nbProjetEnded = countProjetsTermines();
+    $nbTache = $globalStats['total_taches'];
+    $nbTacheEnCours = $globalStats['taches_en_cours'];
+    
+    // ============================================
+    // VARIABLES POUR L'AFFICHAGE DANS LE HEADER
+    // ============================================
     $pageTitle = 'Tableau de bord';
     $pageSubtitle = 'Bienvenue sur votre espace de travail';
     $userName = $user['nom'];
-    $nbProjet = countProjetsActifs();
-    $nbProjetEnded = countProjetsTermines();
-    $nbTache = countTaches();
+    $userRole = $user['role'] == 'admin' ? 'Administrateur' : 'Utilisateur';
+    
+    // Génère les initiales (première lettre du nom)
     $userInitials = strtoupper(substr($user['nom'], 0, 1));
     
     // Inclure la vue du dashboard

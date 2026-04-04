@@ -197,7 +197,8 @@ function countProjetsTermines() {
     return $termines;
 }
 
-// Compte les projets actifs (en_cours + planifie)
+
+// Compte les projets actifs (en_cours ou planifie)
 function countProjetsActifs() {
     $projets = getAllProjets();
     $actifs = 0;
