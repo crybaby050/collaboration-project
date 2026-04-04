@@ -209,3 +209,68 @@ function countProjetsActifs() {
     }
     return $actifs;
 }
+
+// Récupère toutes les informations pour le tableau de bord
+function getProjetsForDashboard($userId) {
+    $projets = getProjetsByUser($userId);
+    $projetsData = [];
+    
+    foreach ($projets as $projet) {
+        // Récupère les statistiques du projet
+        $stats = getTachesStatistiques($projet['id']);
+        $avancement = getProjetAvancement($projet['id']);
+        
+        // Récupère le responsable (admin) du projet
+        $admin = getUserById($projet['adminId']);
+        
+        // Détermine la classe CSS pour le statut
+        $statutClass = '';
+        $statutText = '';
+        
+        // Vérifie si le projet doit être marqué comme terminé
+        if (isProjetTermine($projet['id'])) {
+            $statutClass = 'bg-green-100 text-green-600';
+            $statutText = 'Terminé';
+        } else {
+            switch ($projet['statut']) {
+                case 'planifie':
+                    $statutClass = 'bg-yellow-100 text-yellow-600';
+                    $statutText = 'Planifié';
+                    break;
+                case 'en_cours':
+                    $statutClass = 'bg-[#BDE3F2] text-[#2B88D9]';
+                    $statutText = 'En cours';
+                    break;
+                default:
+                    $statutClass = 'bg-gray-100 text-gray-600';
+                    $statutText = ucfirst($projet['statut']);
+            }
+        }
+        
+        $projetsData[] = [
+            'id' => $projet['id'],
+            'nom' => $projet['nom'],
+            'couleur' => $projet['couleur'],
+            'responsable' => $admin ? $admin['nom'] : 'Inconnu',
+            'statut' => $statutText,
+            'statutClass' => $statutClass,
+            'avancement' => $avancement,
+            'dateEcheance' => $projet['dateEcheance'],
+            'taches_total' => $stats['total'],
+            'taches_termine' => $stats['termine']
+        ];
+    }
+    
+    // Trie les projets : d'abord les non terminés, puis les terminés
+    usort($projetsData, function($a, $b) {
+        if ($a['statut'] == 'Terminé' && $b['statut'] != 'Terminé') {
+            return 1;
+        }
+        if ($a['statut'] != 'Terminé' && $b['statut'] == 'Terminé') {
+            return -1;
+        }
+        return 0;
+    });
+    
+    return $projetsData;
+}
