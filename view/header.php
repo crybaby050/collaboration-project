@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Vos styles existants (je les garde identiques) */
         * {
             font-family: 'Inter', sans-serif;
         }
@@ -214,39 +213,33 @@
             
             <nav class="space-y-2">
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=dashboard" class="flex items-center gap-3 w-full">
+                    <a href="<?= WEBROOT ?>?page=dashboard">
                         <i class="fas fa-chart-line w-5 text-white"></i>
-                        <span class="text-white">Tableau de bord</span>
+                    <span class="text-white">Tableau de bord</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=projet" class="flex items-center gap-3 w-full">
+                    <a href="<?= WEBROOT ?>?page=projet">
                         <i class="fas fa-project-diagram w-5 text-white/80 group-hover:text-white"></i>
-                        <span class="text-white/80 group-hover:text-white">Projets</span>
+                    <span class="text-white/80 group-hover:text-white">Projets</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=tache" class="flex items-center gap-3 w-full">
+                    <a href="<?= WEBROOT ?>?page=tache">
                         <i class="fas fa-tasks w-5 text-white/80 group-hover:text-white"></i>
-                        <span class="text-white/80 group-hover:text-white">Tâches</span>
+                    <span class="text-white/80 group-hover:text-white">Tâches</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=equipe" class="flex items-center gap-3 w-full">
+                    <a href="<?= WEBROOT ?>?page=tache">
                         <i class="fas fa-users w-5 text-white/80 group-hover:text-white"></i>
-                        <span class="text-white/80 group-hover:text-white">Équipe</span>
+                    <span class="text-white/80 group-hover:text-white">Équipe</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=parametres" class="flex items-center gap-3 w-full">
+                    <a href="<?= WEBROOT ?>?page=logout">
                         <i class="fas fa-cog w-5 text-white/80 group-hover:text-white"></i>
-                        <span class="text-white/80 group-hover:text-white">Paramètres</span>
-                    </a>
-                </div>
-                <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500/20 transition-all cursor-pointer group mt-4 border-t border-white/20 pt-4">
-                    <a href="<?= WEBROOT ?>?page=logout" class="flex items-center gap-3 w-full">
-                        <i class="fas fa-sign-out-alt w-5 text-red-300"></i>
-                        <span class="text-red-200">Déconnexion</span>
+                    <span class="text-white/80 group-hover:text-white">Paramètres</span>
                     </a>
                 </div>
             </nav>
@@ -275,9 +268,8 @@
                         <i class="fas fa-bars text-gray-600 text-xl"></i>
                     </button>
                     <div>
-                        <!-- Ces variables viennent du dashboardController -->
-                        <h2 class="text-2xl font-bold text-gray-800"><?php echo $pageTitle ?? 'Tableau de bord'; ?></h2>
-                        <p class="text-sm text-gray-500 mt-1"><?php echo $pageSubtitle ?? 'Bienvenue sur votre espace de travail'; ?></p>
+                        <h2 class="text-2xl font-bold text-gray-800">Tableau de bord</h2>
+                        <p class="text-sm text-gray-500 mt-1">Bienvenue sur votre espace de travail</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -287,12 +279,11 @@
                     
                     <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg px-3 py-2 transition">
                         <div class="text-right hidden sm:block">
-                            <!-- Ces variables viennent du dashboardController -->
-                            <p class="text-sm font-semibold text-gray-800"><?php echo $userName ?? 'Utilisateur'; ?></p>
-                            <p class="text-xs text-gray-500"><?php echo $userRole ?? 'Membre'; ?></p>
+                            <p class="text-sm font-semibold text-gray-800">Alexandre Martin</p>
+                            <p class="text-xs text-gray-500">Product Owner</p>
                         </div>
                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#2B88D9] to-[#99D0F2] flex items-center justify-center text-white font-bold shadow-md">
-                            <?php echo $userInitials ?? 'U'; ?>
+                            AM
                         </div>
                     </div>
                 </div>

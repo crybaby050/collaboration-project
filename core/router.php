@@ -2,6 +2,7 @@
 
 // Inclure le modèle
 require_once __DIR__ . '/../model/init.php';
+require_once __DIR__ . '/allController.php';
 
 // Récupérer la page demandée
 $page = $_GET['page'] ?? 'login';
@@ -37,17 +38,17 @@ if ($page !== 'login' && $page !== 'register') {
 // Routage
 switch ($page) {
     case 'login':
-        require_once __DIR__ . '/../controller/loginController.php';
+        //require_once __DIR__ . '/../controller/loginController.php';
         loginPage();
         break;
         
     case 'dashboard':
-        require_once __DIR__ . '/../controller/dashboardController.php';
+        //require_once __DIR__ . '/../controller/dashboardController.php';
         dashboardPage();
         break;
 
     default:
-        require_once __DIR__ . '/../controller/loginController.php';
+        //require_once __DIR__ . '/../controller/loginController.php';
         loginPage();
         break;
 }
