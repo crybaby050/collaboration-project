@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mbollo | Tableau de bord</title>
-    <!-- Le reste de votre code -->
+    <title>Mbollo | <?php echo htmlspecialchars($pageTitle ?? 'Tableau de bord'); ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -190,7 +189,7 @@
             transition: all 0.3s ease;
         }
     </style>
-    <script src="http://localhost:8000/public/js/script.js"></script>
+    <script src="<?= WEBROOT ?>public/js/script.js"></script>
 
 </head>
 <body class="bg-gray-50" id="body">
@@ -213,33 +212,39 @@
             
             <nav class="space-y-2">
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=dashboard">
+                    <a href="<?= WEBROOT ?>?page=dashboard" class="flex items-center gap-3 w-full">
                         <i class="fas fa-chart-line w-5 text-white"></i>
-                    <span class="text-white">Tableau de bord</span>
+                        <span class="text-white">Tableau de bord</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=projet">
+                    <a href="<?= WEBROOT ?>?page=projet" class="flex items-center gap-3 w-full">
                         <i class="fas fa-project-diagram w-5 text-white/80 group-hover:text-white"></i>
-                    <span class="text-white/80 group-hover:text-white">Projets</span>
+                        <span class="text-white/80 group-hover:text-white">Projets</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=tache">
+                    <a href="<?= WEBROOT ?>?page=tache" class="flex items-center gap-3 w-full">
                         <i class="fas fa-tasks w-5 text-white/80 group-hover:text-white"></i>
-                    <span class="text-white/80 group-hover:text-white">Tâches</span>
+                        <span class="text-white/80 group-hover:text-white">Tâches</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=tache">
+                    <a href="<?= WEBROOT ?>?page=equipe" class="flex items-center gap-3 w-full">
                         <i class="fas fa-users w-5 text-white/80 group-hover:text-white"></i>
-                    <span class="text-white/80 group-hover:text-white">Équipe</span>
+                        <span class="text-white/80 group-hover:text-white">Équipe</span>
                     </a>
                 </div>
                 <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
-                    <a href="<?= WEBROOT ?>?page=logout">
+                    <a href="<?= WEBROOT ?>?page=parametres" class="flex items-center gap-3 w-full">
                         <i class="fas fa-cog w-5 text-white/80 group-hover:text-white"></i>
-                    <span class="text-white/80 group-hover:text-white">Paramètres</span>
+                        <span class="text-white/80 group-hover:text-white">Paramètres</span>
+                    </a>
+                </div>
+                <div class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition-all cursor-pointer group">
+                    <a href="<?= WEBROOT ?>?page=logout" class="flex items-center gap-3 w-full">
+                        <i class="fas fa-sign-out-alt w-5 text-white/80 group-hover:text-white"></i>
+                        <span class="text-white/80 group-hover:text-white">Déconnexion</span>
                     </a>
                 </div>
             </nav>
@@ -268,8 +273,13 @@
                         <i class="fas fa-bars text-gray-600 text-xl"></i>
                     </button>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-800">Tableau de bord</h2>
-                        <p class="text-sm text-gray-500 mt-1">Bienvenue sur votre espace de travail</p>
+                        <!-- CORRIGÉ : titre et sous-titre dynamiques -->
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            <?php echo htmlspecialchars($pageTitle ?? 'Tableau de bord'); ?>
+                        </h2>
+                        <p class="text-sm text-gray-500 mt-1">
+                            <?php echo htmlspecialchars($pageSubtitle ?? ''); ?>
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -279,11 +289,17 @@
                     
                     <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg px-3 py-2 transition">
                         <div class="text-right hidden sm:block">
-                            <p class="text-sm font-semibold text-gray-800">Alexandre Martin</p>
-                            <p class="text-xs text-gray-500">Product Owner</p>
+                            <!-- CORRIGÉ : nom et rôle dynamiques -->
+                            <p class="text-sm font-semibold text-gray-800">
+                                <?php echo htmlspecialchars($userName ?? ''); ?>
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                <?php echo htmlspecialchars($userRole ?? ''); ?>
+                            </p>
                         </div>
+                        <!-- CORRIGÉ : initiales dynamiques -->
                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#2B88D9] to-[#99D0F2] flex items-center justify-center text-white font-bold shadow-md">
-                            AM
+                            <?php echo htmlspecialchars($userInitials ?? '?'); ?>
                         </div>
                     </div>
                 </div>

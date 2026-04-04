@@ -102,6 +102,11 @@ function findUserById($id){
     return [];
 }
 
+
+// Alias pour la compatibilité avec tacheModel.php
+function getUserById($id) {
+    return findUserById($id);
+}
 //==============================================================
 //LEs informations d'inscription
 //==============================================================
